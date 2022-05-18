@@ -1,17 +1,29 @@
-import React from "react";
-// import PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import s from './Contacts.module.css';
 
-function Contacts({contacts}) {
+function Contacts({ contacts, onClick }) {
   return (
-    <div>
-      <h2>Contacts</h2>
-      <ul>
-        {contacts.map(({ id, name }) => (
-          <li key={id}>{name}</li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {contacts.map(({ id, name, number }) => (
+        <li className={s.contactsItem} key={id}>
+          {name}: {number}
+          <button
+            className={s.button}
+            type="button"
+            onClick={() => onClick(id)}
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
+
+Contacts.propTypes = {
+  contacts: PropTypes.array,
+  onClick: PropTypes.func,
+};
+
 export default Contacts;
